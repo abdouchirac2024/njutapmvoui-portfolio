@@ -4,6 +4,7 @@ import { ExternalLink } from "lucide-react";
 import { getDictionary } from "@/lib/data";
 import { FadeIn } from "@/components/fade-in";
 import { isLocale, locales, type Locale } from "@/lib/i18n";
+import { buildMetadata } from "@/lib/seo";
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
@@ -17,7 +18,13 @@ export async function generateMetadata({
   const { locale } = await params;
   const l: Locale = isLocale(locale) ? locale : "fr";
   const t = getDictionary(l);
-  return { title: t.meta.about.title, description: t.meta.about.description };
+  return buildMetadata({
+    locale: l,
+    path: "/about",
+    title: t.meta.about.title,
+    description: t.meta.about.description,
+    siteName: t.site.name,
+  });
 }
 
 export default async function AboutPage({ params }: { params: Promise<{ locale: string }> }) {

@@ -4,6 +4,7 @@ import { getDictionary } from "@/lib/data";
 import { LinkedinIcon, GitlabIcon } from "@/components/icons";
 import { FadeIn } from "@/components/fade-in";
 import { isLocale, locales, type Locale } from "@/lib/i18n";
+import { buildMetadata } from "@/lib/seo";
 
 const iconMap = {
   linkedin: LinkedinIcon,
@@ -24,7 +25,13 @@ export async function generateMetadata({
   const { locale } = await params;
   const l: Locale = isLocale(locale) ? locale : "fr";
   const t = getDictionary(l);
-  return { title: t.meta.contact.title, description: t.meta.contact.description };
+  return buildMetadata({
+    locale: l,
+    path: "/contact",
+    title: t.meta.contact.title,
+    description: t.meta.contact.description,
+    siteName: t.site.name,
+  });
 }
 
 export default async function ContactPage({ params }: { params: Promise<{ locale: string }> }) {

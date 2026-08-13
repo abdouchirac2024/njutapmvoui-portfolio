@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { getDictionary } from "@/lib/data";
 import { FadeIn } from "@/components/fade-in";
 import { isLocale, locales, type Locale } from "@/lib/i18n";
+import { buildMetadata } from "@/lib/seo";
 import { ProjectsClient } from "./page-client";
 
 export function generateStaticParams() {
@@ -16,7 +17,13 @@ export async function generateMetadata({
   const { locale } = await params;
   const l: Locale = isLocale(locale) ? locale : "fr";
   const t = getDictionary(l);
-  return { title: t.meta.projects.title, description: t.meta.projects.description };
+  return buildMetadata({
+    locale: l,
+    path: "/projects",
+    title: t.meta.projects.title,
+    description: t.meta.projects.description,
+    siteName: t.site.name,
+  });
 }
 
 export default async function ProjectsPage({ params }: { params: Promise<{ locale: string }> }) {
