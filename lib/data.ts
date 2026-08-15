@@ -3,7 +3,7 @@ import type { Locale } from "@/lib/i18n";
 export type Social = {
   label: string;
   href: string;
-  icon: "linkedin" | "gitlab" | "globe" | "mail";
+  icon: "linkedin" | "gitlab" | "github" | "globe" | "mail";
 };
 
 export type Project = {
@@ -77,9 +77,9 @@ export type Dictionary = {
     sectionSkills: string;
   };
   projectsPage: { heading: string; intro: string; filterAll: string; noResults: string; visitSite: string };
-  contactPage: { heading: string; intro: string };
+  contactPage: { heading: string; intro: string; phoneLabel: string; whatsappCta: string };
   footer: { links: { label: string; href: string }[]; copyright: string };
-  site: { name: string; role: string; email: string; location: string };
+  site: { name: string; role: string; email: string; phone: string; whatsapp: string; location: string };
 };
 
 const fr: Dictionary = {
@@ -134,6 +134,7 @@ const fr: Dictionary = {
   socials: [
     { label: "LinkedIn", href: "https://linkedin.com/in/abdou-njutapmvoui", icon: "linkedin" },
     { label: "GitLab", href: "https://gitlab.com/abdouchirac2024", icon: "gitlab" },
+    { label: "GitHub", href: "https://github.com/abdouchirac2024", icon: "github" },
     { label: "Portfolio", href: "https://chirac-portfolio.vercel.app", icon: "globe" },
     { label: "Email", href: "mailto:abdouchirac411@gmail.com", icon: "mail" },
   ],
@@ -360,6 +361,8 @@ const fr: Dictionary = {
     heading: "Contact",
     intro:
       "Une question, un projet, ou simplement envie d'échanger ? N'hésitez pas à me contacter directement par e-mail ou via l'un des liens ci-dessous.",
+    phoneLabel: "Téléphone",
+    whatsappCta: "Discuter sur WhatsApp",
   },
   footer: {
     links: [
@@ -373,6 +376,8 @@ const fr: Dictionary = {
     name: "Chirac Njutapmvoui",
     role: "Développeur Full Stack · Data & Cloud",
     email: "abdouchirac411@gmail.com",
+    phone: "+237 658 488 485",
+    whatsapp: "https://wa.me/237658488485",
     location: "Douala, Cameroun",
   },
 };
@@ -428,6 +433,7 @@ const en: Dictionary = {
   socials: [
     { label: "LinkedIn", href: "https://linkedin.com/in/abdou-njutapmvoui", icon: "linkedin" },
     { label: "GitLab", href: "https://gitlab.com/abdouchirac2024", icon: "gitlab" },
+    { label: "GitHub", href: "https://github.com/abdouchirac2024", icon: "github" },
     { label: "Portfolio", href: "https://chirac-portfolio.vercel.app", icon: "globe" },
     { label: "Email", href: "mailto:abdouchirac411@gmail.com", icon: "mail" },
   ],
@@ -654,6 +660,8 @@ const en: Dictionary = {
     heading: "Contact",
     intro:
       "Got a question, a project, or just want to say hi? Feel free to reach out directly by email or via one of the links below.",
+    phoneLabel: "Phone",
+    whatsappCta: "Chat on WhatsApp",
   },
   footer: {
     links: [
@@ -667,6 +675,8 @@ const en: Dictionary = {
     name: "Chirac Njutapmvoui",
     role: "Full Stack Developer · Data & Cloud",
     email: "abdouchirac411@gmail.com",
+    phone: "+237 658 488 485",
+    whatsapp: "https://wa.me/237658488485",
     location: "Douala, Cameroon",
   },
 };

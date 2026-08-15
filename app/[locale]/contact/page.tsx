@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import { Mail, Globe } from "lucide-react";
+import { Mail, Globe, Phone } from "lucide-react";
 import { getDictionary } from "@/lib/data";
-import { LinkedinIcon, GitlabIcon } from "@/components/icons";
+import { LinkedinIcon, GitlabIcon, GithubIcon, WhatsappIcon } from "@/components/icons";
 import { FadeIn } from "@/components/fade-in";
 import { isLocale, locales, type Locale } from "@/lib/i18n";
 import { buildMetadata } from "@/lib/seo";
@@ -9,6 +9,7 @@ import { buildMetadata } from "@/lib/seo";
 const iconMap = {
   linkedin: LinkedinIcon,
   gitlab: GitlabIcon,
+  github: GithubIcon,
   globe: Globe,
   mail: Mail,
 };
@@ -47,12 +48,33 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
       </FadeIn>
 
       <FadeIn delay={0.06}>
+        <div className="mt-8 flex flex-wrap gap-3">
+          <a
+            href={`mailto:${t.site.email}`}
+            className="inline-flex items-center gap-2 rounded-full bg-foreground px-5 py-2.5 text-sm font-medium text-background transition-opacity hover:opacity-85"
+          >
+            <Mail size={16} />
+            {t.site.email}
+          </a>
+          <a
+            href={t.site.whatsapp}
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center gap-2 rounded-full border border-border px-5 py-2.5 text-sm font-medium text-foreground transition-colors hover:border-foreground/30"
+          >
+            <WhatsappIcon className="text-muted" width={16} height={16} />
+            {t.contactPage.whatsappCta}
+          </a>
+        </div>
+      </FadeIn>
+
+      <FadeIn delay={0.08}>
         <a
-          href={`mailto:${t.site.email}`}
-          className="mt-8 inline-flex items-center gap-2 rounded-full bg-foreground px-5 py-2.5 text-sm font-medium text-background transition-opacity hover:opacity-85"
+          href={`tel:${t.site.phone.replace(/\s/g, "")}`}
+          className="mt-4 inline-flex items-center gap-2 text-sm text-muted transition-colors hover:text-foreground"
         >
-          <Mail size={16} />
-          {t.site.email}
+          <Phone size={15} />
+          {t.contactPage.phoneLabel} · {t.site.phone}
         </a>
       </FadeIn>
 

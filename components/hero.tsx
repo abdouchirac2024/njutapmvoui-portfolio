@@ -1,13 +1,14 @@
 import Link from "next/link";
 import { Mail, Globe } from "lucide-react";
 import { getDictionary } from "@/lib/data";
-import { LinkedinIcon, GitlabIcon } from "@/components/icons";
+import { LinkedinIcon, GitlabIcon, GithubIcon } from "@/components/icons";
 import { FadeIn } from "@/components/fade-in";
 import { withLocale, type Locale } from "@/lib/i18n";
 
 const iconMap = {
   linkedin: LinkedinIcon,
   gitlab: GitlabIcon,
+  github: GithubIcon,
   globe: Globe,
   mail: Mail,
 };
