@@ -119,7 +119,7 @@ const fr: Dictionary = {
     greetingLines: ["Salut, je suis Chirac NJUTAPMVOUI,", "mais vous pouvez m'appeler Chirac."],
     paragraph: {
       before:
-        "Je suis un développeur Full Stack spécialisé Data & Cloud originaire du Cameroun, et je développe des ",
+        "Je suis un développeur Full Stack originaire du Cameroun, et je développe des ",
       linkText: "projets open source",
       linkHref: "/projects",
       after:
@@ -418,7 +418,7 @@ const en: Dictionary = {
   hero: {
     greetingLines: ["Hi, I'm Chirac NJUTAPMVOUI,", "but you can call me Chirac."],
     paragraph: {
-      before: "I'm a Full Stack developer specialized in Data & Cloud from Cameroon, and I build ",
+      before: "I'm a Full Stack developer from Cameroon, and I build ",
       linkText: "open source projects",
       linkHref: "/projects",
       after:
