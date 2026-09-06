@@ -18,6 +18,7 @@ export type Project = {
   url?: string;
   visibility: ProjectVisibility;
   codeUrl?: string;
+  achievements?: string[];
   featured?: boolean;
 };
 
@@ -71,10 +72,16 @@ export type Dictionary = {
   projects: Project[];
   latestProjects: { heading: string; viewProject: string; viewAll: (n: number) => string };
   experiences: Experience[];
-  experienceSection: { heading: string; downloadCV: string; roleTypeLabels: Record<RoleType, string> };
+  experienceSection: {
+    heading: string;
+    downloadCV: string;
+    previewCV: string;
+    closePreview: string;
+    roleTypeLabels: Record<RoleType, string>;
+  };
   education: Education[];
   certifications: Certification[];
-  skills: { category: string; items: string[] }[];
+  skills: { category: string; items: { name: string; usage: string }[] }[];
   aboutPage: {
     intro1: string;
     intro2: string;
@@ -91,6 +98,7 @@ export type Dictionary = {
     visitSite: string;
     viewCode: string;
     privateBadge: string;
+    privateBadgeDetailed: string;
   };
   contactPage: { heading: string; intro: string; phoneLabel: string; whatsappCta: string };
   footer: { links: { label: string; href: string }[]; copyright: string };
@@ -138,7 +146,7 @@ const fr: Dictionary = {
       linkText: "projets open source",
       linkHref: "/projects",
       after:
-        ". Je suis passionné par la création d'applications cloud-native performantes et de pipelines de données temps réel.",
+        ". Je conçois des architectures qui tiennent la charge en production — pas seulement en démo.",
     },
     badges: [
       { label: "🇨🇲 Douala, Cameroun" },
@@ -150,7 +158,6 @@ const fr: Dictionary = {
     { label: "LinkedIn", href: "https://linkedin.com/in/abdou-njutapmvoui", icon: "linkedin" },
     { label: "GitLab", href: "https://gitlab.com/abdouchirac2024", icon: "gitlab" },
     { label: "GitHub", href: "https://github.com/abdouchirac2024", icon: "github" },
-    { label: "Portfolio", href: "https://chirac-portfolio.vercel.app", icon: "globe" },
     { label: "Email", href: "mailto:abdouchirac411@gmail.com", icon: "mail" },
   ],
   featuredProject: {
@@ -181,6 +188,15 @@ const fr: Dictionary = {
       url: "https://helpdigischool.com",
       visibility: "private",
       featured: true,
+      achievements: [
+        "Architecture microservices en 5 services indépendants (frontend Next.js, API Gateway Spring Cloud Gateway, 2 services métier Spring Boot, service discovery Eureka), déployée sur 2 serveurs avec load balancing, circuit breakers et rate limiting.",
+        "Isolation multi-tenant entre établissements scolaires sur la même infrastructure, via propagation de contexte (JWT + Feign) à travers les appels inter-services.",
+        "Diagnostic et résolution d'un incident de production : le chargement des notes d'une classe de 170 élèves est passé de plus de 30 secondes (avec timeout) à moins de 3 secondes, en éliminant des requêtes N+1 et en introduisant du cache ciblé.",
+        "Sous un test de charge réel, identification d'un épuisement du pool de connexions Redis provoquant des erreurs 503 ; correction vérifiée en production avec un taux d'échec ramené de 75% à moins de 10% sous rafale.",
+        "Traitement asynchrone (Spring @Async) pour qu'une modification de note ne bloque plus la réponse HTTP pendant la régénération des bulletins de toute une classe.",
+        "Observabilité complète sur l'ensemble des services (Prometheus, Grafana, Loki) pour les métriques et les logs centralisés.",
+        "Migrations de base de données idempotentes (Flyway), permettant des déploiements sans coupure sur plusieurs répliques en production.",
+      ],
     },
     {
       slug: "multi-canal-services",
@@ -204,6 +220,7 @@ const fr: Dictionary = {
       period: "Juin 2024 – Mai 2025",
       stack: ["React", "Node.js", "Laravel", "JWT"],
       visibility: "private",
+      achievements: ["Gestion fluide de plus de 500 participants sur la plateforme, sans interruption de service."],
     },
     {
       slug: "africa-unity",
@@ -297,6 +314,8 @@ const fr: Dictionary = {
   experienceSection: {
     heading: "Expérience",
     downloadCV: "Télécharger le CV",
+    previewCV: "Aperçu du CV",
+    closePreview: "Fermer l'aperçu",
     roleTypeLabels: { employee: "Salarié", freelance: "Freelance", venture: "Projet entrepreneurial" },
   },
   education: [
@@ -352,27 +371,53 @@ const fr: Dictionary = {
   ],
   skills: [
     {
-      category: "Data & Cloud",
-      items: ["Python (Data Science)", "GCP Cloud Run", "Firebase", "Docker", "MinIO/S3", "Prometheus", "Grafana", "MySQL", "MongoDB", "Redis"],
+      category: "Backend",
+      items: [
+        { name: "Java 21 & Spring Boot", usage: "architecture microservices en production (HelpDigiSchool)" },
+        { name: "Spring Cloud (Gateway, Eureka)", usage: "API gateway et service discovery" },
+        { name: "Laravel (PHP 8+)", usage: "API REST pour l'ERP logistique (Multi Canal Services)" },
+        { name: "Node.js / Express.js", usage: "services API légers" },
+        { name: "JWT & Feign", usage: "authentification et propagation de contexte multi-tenant" },
+        { name: "Python", usage: "scripts de traitement de données" },
+      ],
     },
     {
       category: "Frontend",
-      items: ["Angular 19", "React.js", "Next.js 15", "Vue.js 3", "TypeScript", "Tailwind CSS", "Recharts", "Tesseract.js (OCR)"],
+      items: [
+        { name: "Angular 19", usage: "dashboards de pilotage métier en production" },
+        { name: "Next.js 15 / React.js", usage: "ce portfolio et interfaces SaaS" },
+        { name: "Vue.js 3", usage: "interfaces pour plateformes collaboratives" },
+        { name: "TypeScript", usage: "utilisé sur l'ensemble des projets frontend" },
+        { name: "Tailwind CSS", usage: "système de design de tous les projets récents" },
+        { name: "Recharts", usage: "visualisation de données (dashboards analytiques)" },
+        { name: "Tesseract.js (OCR)", usage: "extraction OCR des notes (HelpDigiSchool)" },
+      ],
     },
     {
-      category: "Backend",
-      items: ["Java 21", "Spring Boot", "Laravel (PHP 8+)", "Node.js", "Express.js", "API REST", "JWT", "Spring Cloud"],
+      category: "Infra & DevOps",
+      items: [
+        { name: "Docker / Docker Compose", usage: "conteneurisation de tous les services en production" },
+        { name: "GCP Cloud Run, Firebase", usage: "hébergement et déploiement cloud" },
+        { name: "Prometheus / Grafana / Loki", usage: "observabilité — métriques et logs centralisés (HelpDigiSchool)" },
+        { name: "GitLab CI / GitHub Actions", usage: "pipelines CI/CD" },
+        { name: "Traefik", usage: "reverse proxy et load balancing" },
+      ],
     },
     {
-      category: "DevOps & CI/CD",
-      items: ["Docker", "Docker Compose", "Traefik", "GitLab CI", "GitHub Actions", "CI/CD pipelines"],
+      category: "Bases de données",
+      items: [
+        { name: "MySQL / MongoDB", usage: "bases relationnelles et documentaires en production" },
+        { name: "Redis", usage: "cache applicatif — diagnostic et correction d'un incident de pool de connexions" },
+        { name: "MinIO/S3", usage: "stockage d'objets pour fichiers et exports" },
+        { name: "Flyway", usage: "migrations idempotentes, déploiements sans coupure" },
+      ],
     },
   ],
   aboutPage: {
     intro1:
-      "Développeur Full Stack avec près de 3 ans d'expérience professionnelle, spécialisé dans le déploiement d'applications cloud-native (GCP, Docker) et le traitement de données en production. Basé à Douala, Cameroun, je développe des pipelines de données temps réel, des interfaces de visualisation et des architectures microservices.",
+      "J'ai ramené le chargement des notes d'une classe de 170 élèves de plus de 30 secondes (avec timeout) à moins de 3 secondes, et fait passer le taux d'échec d'un service sous forte charge de 75% à moins de 10%. C'est le genre de problème concret que je résous au quotidien : je conçois et j'opère des architectures microservices en production, pas seulement des maquettes.",
     intro2:
-      "Diplômé d'une Licence Professionnelle Métiers de l'Informatique : Applications Web de l'IUT d'Évry Val d'Essonne (mention Bien), je continue d'approfondir mes compétences en science des données pour connecter ingénierie logicielle et analyse décisionnelle.",
+      "Développeur Full Stack depuis près de 3 ans, formé à l'IUT d'Évry Val d'Essonne (Licence Professionnelle Métiers de l'Informatique, mention Bien), basé à Douala au Cameroun. J'ai architecturé et j'opère HelpDigiSchool, un SaaS de gestion scolaire multi-établissements, et modernisé un ERP logistique chez Multi Canal Services en réduisant de 40% la latence de ses requêtes critiques.",
     sectionExperience: "Expérience",
     sectionEducation: "Formation",
     sectionCertifications: "Certifications",
@@ -387,6 +432,7 @@ const fr: Dictionary = {
     visitSite: "Visiter le site",
     viewCode: "Voir le code",
     privateBadge: "🔒 Projet privé — code sous NDA",
+    privateBadgeDetailed: "🔒 Code source privé (NDA) — architecture et résultats détaillés ci-dessous",
   },
   contactPage: {
     heading: "Contact",
@@ -453,7 +499,7 @@ const en: Dictionary = {
       linkText: "open source projects",
       linkHref: "/projects",
       after:
-        ". I'm passionate about building high-performance cloud-native applications and real-time data pipelines.",
+        ". I design architectures that hold up under real production load — not just in a demo.",
     },
     badges: [
       { label: "🇨🇲 Douala, Cameroon" },
@@ -465,7 +511,6 @@ const en: Dictionary = {
     { label: "LinkedIn", href: "https://linkedin.com/in/abdou-njutapmvoui", icon: "linkedin" },
     { label: "GitLab", href: "https://gitlab.com/abdouchirac2024", icon: "gitlab" },
     { label: "GitHub", href: "https://github.com/abdouchirac2024", icon: "github" },
-    { label: "Portfolio", href: "https://chirac-portfolio.vercel.app", icon: "globe" },
     { label: "Email", href: "mailto:abdouchirac411@gmail.com", icon: "mail" },
   ],
   featuredProject: {
@@ -496,6 +541,15 @@ const en: Dictionary = {
       url: "https://helpdigischool.com",
       visibility: "private",
       featured: true,
+      achievements: [
+        "Microservices architecture split into 5 independent services (Next.js frontend, Spring Cloud Gateway API gateway, 2 Spring Boot business services, Eureka service discovery), deployed across 2 servers with load balancing, circuit breakers, and rate limiting.",
+        "Multi-tenant isolation between schools sharing the same infrastructure, via context propagation (JWT + Feign) across inter-service calls.",
+        "Diagnosed and fixed a production incident: grade loading for a 170-student class dropped from 30+ seconds (timing out) to under 3 seconds, by eliminating N+1 queries and introducing targeted caching.",
+        "Under a real load test, identified a Redis connection pool exhaustion causing 503 errors; the fix was verified in production, cutting the failure rate from 75% to under 10% under burst traffic.",
+        "Asynchronous processing (Spring @Async) so a single grade edit no longer blocks the HTTP response while report cards regenerate for an entire class.",
+        "Full observability across all services (Prometheus, Grafana, Loki) for centralized metrics and logs.",
+        "Idempotent database migrations (Flyway), enabling zero-downtime deployments across multiple production replicas.",
+      ],
     },
     {
       slug: "multi-canal-services",
@@ -519,6 +573,7 @@ const en: Dictionary = {
       period: "June 2024 – May 2025",
       stack: ["React", "Node.js", "Laravel", "JWT"],
       visibility: "private",
+      achievements: ["Smooth management of 500+ participants on the platform, with no service interruption."],
     },
     {
       slug: "africa-unity",
@@ -612,6 +667,8 @@ const en: Dictionary = {
   experienceSection: {
     heading: "Experience",
     downloadCV: "Download CV",
+    previewCV: "Preview CV",
+    closePreview: "Close preview",
     roleTypeLabels: { employee: "Employee", freelance: "Freelance", venture: "Personal venture" },
   },
   education: [
@@ -667,27 +724,53 @@ const en: Dictionary = {
   ],
   skills: [
     {
-      category: "Data & Cloud",
-      items: ["Python (Data Science)", "GCP Cloud Run", "Firebase", "Docker", "MinIO/S3", "Prometheus", "Grafana", "MySQL", "MongoDB", "Redis"],
+      category: "Backend",
+      items: [
+        { name: "Java 21 & Spring Boot", usage: "microservices architecture in production (HelpDigiSchool)" },
+        { name: "Spring Cloud (Gateway, Eureka)", usage: "API gateway and service discovery" },
+        { name: "Laravel (PHP 8+)", usage: "REST API for the logistics ERP (Multi Canal Services)" },
+        { name: "Node.js / Express.js", usage: "lightweight API services" },
+        { name: "JWT & Feign", usage: "authentication and multi-tenant context propagation" },
+        { name: "Python", usage: "data-processing scripts" },
+      ],
     },
     {
       category: "Frontend",
-      items: ["Angular 19", "React.js", "Next.js 15", "Vue.js 3", "TypeScript", "Tailwind CSS", "Recharts", "Tesseract.js (OCR)"],
+      items: [
+        { name: "Angular 19", usage: "business dashboards in production" },
+        { name: "Next.js 15 / React.js", usage: "this portfolio and SaaS interfaces" },
+        { name: "Vue.js 3", usage: "interfaces for collaborative platforms" },
+        { name: "TypeScript", usage: "used across all frontend projects" },
+        { name: "Tailwind CSS", usage: "design system for every recent project" },
+        { name: "Recharts", usage: "data visualization (analytics dashboards)" },
+        { name: "Tesseract.js (OCR)", usage: "OCR grade extraction (HelpDigiSchool)" },
+      ],
     },
     {
-      category: "Backend",
-      items: ["Java 21", "Spring Boot", "Laravel (PHP 8+)", "Node.js", "Express.js", "REST API", "JWT", "Spring Cloud"],
+      category: "Infra & DevOps",
+      items: [
+        { name: "Docker / Docker Compose", usage: "containerization of every production service" },
+        { name: "GCP Cloud Run, Firebase", usage: "cloud hosting and deployment" },
+        { name: "Prometheus / Grafana / Loki", usage: "observability — centralized metrics and logs (HelpDigiSchool)" },
+        { name: "GitLab CI / GitHub Actions", usage: "CI/CD pipelines" },
+        { name: "Traefik", usage: "reverse proxy and load balancing" },
+      ],
     },
     {
-      category: "DevOps & CI/CD",
-      items: ["Docker", "Docker Compose", "Traefik", "GitLab CI", "GitHub Actions", "CI/CD pipelines"],
+      category: "Databases",
+      items: [
+        { name: "MySQL / MongoDB", usage: "relational and document stores in production" },
+        { name: "Redis", usage: "application cache — diagnosed and fixed a connection pool incident" },
+        { name: "MinIO/S3", usage: "object storage for files and exports" },
+        { name: "Flyway", usage: "idempotent migrations, zero-downtime deployments" },
+      ],
     },
   ],
   aboutPage: {
     intro1:
-      "Full Stack developer with nearly 3 years of professional experience, specialized in deploying cloud-native applications (GCP, Docker) and production data processing. Based in Douala, Cameroon, I build real-time data pipelines, visualization interfaces, and microservices architectures.",
+      "I brought grade-loading for a 170-student class from over 30 seconds (timing out) down to under 3 seconds, and cut a service's failure rate under heavy load from 75% to under 10%. That's the kind of concrete problem I solve day to day: I design and operate production microservices architectures, not just prototypes.",
     intro2:
-      "A graduate of a Professional Bachelor's degree in IT Professions: Web Applications from IUT d'Évry Val d'Essonne (Honors), I keep deepening my data science skills to connect software engineering with decision-making analysis.",
+      "Full Stack developer for nearly 3 years, trained at IUT d'Évry Val d'Essonne (Professional Bachelor's degree in IT Professions, Honors), based in Douala, Cameroon. I architected and operate HelpDigiSchool, a multi-tenant school management SaaS, and modernized a logistics ERP at Multi Canal Services, cutting critical query latency by 40%.",
     sectionExperience: "Experience",
     sectionEducation: "Education",
     sectionCertifications: "Certifications",
@@ -702,6 +785,7 @@ const en: Dictionary = {
     visitSite: "Visit website",
     viewCode: "View code",
     privateBadge: "🔒 Private project — code under NDA",
+    privateBadgeDetailed: "🔒 Private source code (NDA) — architecture and results detailed below",
   },
   contactPage: {
     heading: "Contact",

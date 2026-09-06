@@ -62,10 +62,19 @@ export function ProjectsClient({ locale }: { locale: Locale }) {
               </div>
               {project.visibility === "private" && (
                 <span className="mt-2 inline-block rounded-full border border-border px-2.5 py-1 text-xs text-muted">
-                  {t.projectsPage.privateBadge}
+                  {project.achievements?.length
+                    ? t.projectsPage.privateBadgeDetailed
+                    : t.projectsPage.privateBadge}
                 </span>
               )}
               <p className="mt-3 text-sm leading-relaxed text-muted">{project.longDescription}</p>
+              {project.achievements && project.achievements.length > 0 && (
+                <ul className="mt-3 list-disc space-y-1.5 pl-4 text-sm leading-relaxed text-muted">
+                  {project.achievements.map((achievement) => (
+                    <li key={achievement}>{achievement}</li>
+                  ))}
+                </ul>
+              )}
               <div className="mt-3 flex flex-wrap gap-1.5">
                 {project.stack.map((s) => (
                   <span

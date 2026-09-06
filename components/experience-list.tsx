@@ -1,6 +1,7 @@
 import { Download } from "lucide-react";
 import { getDictionary } from "@/lib/data";
 import { FadeIn } from "@/components/fade-in";
+import { CvPreview } from "@/components/cv-preview";
 import type { Locale } from "@/lib/i18n";
 
 export function ExperienceList({ locale }: { locale: Locale }) {
@@ -48,14 +49,17 @@ export function ExperienceList({ locale }: { locale: Locale }) {
       </ol>
 
       <FadeIn delay={0.2}>
-        <a
-          href="/CV_NJUTAPMVOUI_Chirac.pdf"
-          download
-          className="mt-7 inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm font-medium text-foreground transition-colors hover:border-foreground/30"
-        >
-          {t.experienceSection.downloadCV}
-          <Download size={15} />
-        </a>
+        <div className="mt-7 flex flex-wrap items-center gap-3">
+          <CvPreview locale={locale} />
+          <a
+            href="/CV_NJUTAPMVOUI_Chirac.pdf"
+            download
+            className="inline-flex items-center gap-2 rounded-full bg-foreground px-4 py-2 text-sm font-medium text-background transition-opacity hover:opacity-85"
+          >
+            {t.experienceSection.downloadCV}
+            <Download size={15} />
+          </a>
+        </div>
       </FadeIn>
     </section>
   );

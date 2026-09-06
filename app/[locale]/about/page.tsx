@@ -156,20 +156,18 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
       <FadeIn delay={0.14}>
         <section className="mt-14">
           <h2 className="text-lg font-semibold text-foreground">{t.aboutPage.sectionSkills}</h2>
-          <div className="mt-6 grid gap-6 sm:grid-cols-2">
+          <div className="mt-6 grid gap-8 sm:grid-cols-2">
             {t.skills.map((group) => (
               <div key={group.category}>
                 <h3 className="text-sm font-medium text-foreground">{group.category}</h3>
-                <div className="mt-2 flex flex-wrap gap-1.5">
+                <ul className="mt-3 space-y-2.5">
                   {group.items.map((item) => (
-                    <span
-                      key={item}
-                      className="rounded-full border border-border px-2.5 py-1 text-xs text-muted"
-                    >
-                      {item}
-                    </span>
+                    <li key={item.name} className="text-sm leading-snug">
+                      <span className="font-medium text-foreground">{item.name}</span>
+                      <span className="text-muted"> — {item.usage}</span>
+                    </li>
                   ))}
-                </div>
+                </ul>
               </div>
             ))}
           </div>
