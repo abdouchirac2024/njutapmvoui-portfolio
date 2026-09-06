@@ -60,6 +60,11 @@ export function ProjectsClient({ locale }: { locale: Locale }) {
                 <h2 className="text-base font-medium text-foreground">{project.title}</h2>
                 <span className="text-xs text-muted tabular-nums">{project.period}</span>
               </div>
+              {project.visibility === "private" && (
+                <span className="mt-2 inline-block rounded-full border border-border px-2.5 py-1 text-xs text-muted">
+                  {t.projectsPage.privateBadge}
+                </span>
+              )}
               <p className="mt-3 text-sm leading-relaxed text-muted">{project.longDescription}</p>
               <div className="mt-3 flex flex-wrap gap-1.5">
                 {project.stack.map((s) => (
@@ -71,17 +76,30 @@ export function ProjectsClient({ locale }: { locale: Locale }) {
                   </span>
                 ))}
               </div>
-              {project.url && (
-                <a
-                  href={project.url}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="mt-4 inline-flex items-center gap-1 text-sm text-foreground underline decoration-border underline-offset-4 transition-colors hover:text-accent hover:decoration-accent"
-                >
-                  {t.projectsPage.visitSite}
-                  <ArrowUpRight size={14} />
-                </a>
-              )}
+              <div className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2">
+                {project.url && (
+                  <a
+                    href={project.url}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center gap-1 text-sm text-foreground underline decoration-border underline-offset-4 transition-colors hover:text-accent hover:decoration-accent"
+                  >
+                    {t.projectsPage.visitSite}
+                    <ArrowUpRight size={14} />
+                  </a>
+                )}
+                {project.visibility === "public" && project.codeUrl && (
+                  <a
+                    href={project.codeUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center gap-1 text-sm text-foreground underline decoration-border underline-offset-4 transition-colors hover:text-accent hover:decoration-accent"
+                  >
+                    {t.projectsPage.viewCode}
+                    <ArrowUpRight size={14} />
+                  </a>
+                )}
+              </div>
             </article>
           </FadeIn>
         ))}

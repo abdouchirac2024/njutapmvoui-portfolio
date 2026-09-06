@@ -6,6 +6,8 @@ export type Social = {
   icon: "linkedin" | "gitlab" | "github" | "globe" | "mail";
 };
 
+export type ProjectVisibility = "public" | "private";
+
 export type Project = {
   slug: string;
   title: string;
@@ -14,6 +16,8 @@ export type Project = {
   longDescription: string;
   stack: string[];
   url?: string;
+  visibility: ProjectVisibility;
+  codeUrl?: string;
   featured?: boolean;
 };
 
@@ -79,7 +83,15 @@ export type Dictionary = {
     sectionCertifications: string;
     sectionSkills: string;
   };
-  projectsPage: { heading: string; intro: string; filterAll: string; noResults: string; visitSite: string };
+  projectsPage: {
+    heading: string;
+    intro: string;
+    filterAll: string;
+    noResults: string;
+    visitSite: string;
+    viewCode: string;
+    privateBadge: string;
+  };
   contactPage: { heading: string; intro: string; phoneLabel: string; whatsappCta: string };
   footer: { links: { label: string; href: string }[]; copyright: string };
   site: { name: string; role: string; email: string; phone: string; whatsapp: string; location: string };
@@ -151,6 +163,7 @@ const fr: Dictionary = {
     period: "2025 – Avr. 2026",
     stack: ["Java 21", "Spring Boot", "Spring Cloud", "Next.js 15", "MySQL", "Redis", "Docker", "Prometheus", "Grafana", "MinIO/S3"],
     url: "https://helpdigischool.com",
+    visibility: "private",
     featured: true,
     trustedBy: "Approuvé par plusieurs établissements scolaires",
     visitSite: "Visiter le site",
@@ -166,6 +179,7 @@ const fr: Dictionary = {
       period: "2025 – Avr. 2026",
       stack: ["Java 21", "Spring Boot", "Spring Cloud", "Next.js 15", "MySQL", "Redis", "Docker", "Prometheus", "Grafana", "MinIO/S3"],
       url: "https://helpdigischool.com",
+      visibility: "private",
       featured: true,
     },
     {
@@ -178,6 +192,7 @@ const fr: Dictionary = {
       period: "Mai 2025 – Mai 2026",
       stack: ["Angular 19", "Laravel 11", "Node.js", "GCP Cloud Run", "GCP Functions", "Docker", "Redis"],
       url: "https://livraison-express.net",
+      visibility: "private",
     },
     {
       slug: "congres-adna",
@@ -188,6 +203,7 @@ const fr: Dictionary = {
         "Conception et modélisation de la plateforme collaborative Congrès ADNA, avec sécurisation des flux de données utilisateurs (JWT, gestion des rôles) sur une architecture microservices.",
       period: "Juin 2024 – Mai 2025",
       stack: ["React", "Node.js", "Laravel", "JWT"],
+      visibility: "private",
     },
     {
       slug: "africa-unity",
@@ -199,6 +215,7 @@ const fr: Dictionary = {
       period: "Juin 2023 – Nov. 2023",
       stack: ["PHP", "CMS", "MySQL"],
       url: "https://africaunity.net",
+      visibility: "private",
     },
   ],
   latestProjects: {
@@ -368,6 +385,8 @@ const fr: Dictionary = {
     filterAll: "Tous",
     noResults: "Aucun projet pour ce filtre.",
     visitSite: "Visiter le site",
+    viewCode: "Voir le code",
+    privateBadge: "🔒 Projet privé — code sous NDA",
   },
   contactPage: {
     heading: "Contact",
@@ -459,6 +478,7 @@ const en: Dictionary = {
     period: "2025 – Apr. 2026",
     stack: ["Java 21", "Spring Boot", "Spring Cloud", "Next.js 15", "MySQL", "Redis", "Docker", "Prometheus", "Grafana", "MinIO/S3"],
     url: "https://helpdigischool.com",
+    visibility: "private",
     featured: true,
     trustedBy: "Trusted by several schools",
     visitSite: "Visit website",
@@ -474,6 +494,7 @@ const en: Dictionary = {
       period: "2025 – Apr. 2026",
       stack: ["Java 21", "Spring Boot", "Spring Cloud", "Next.js 15", "MySQL", "Redis", "Docker", "Prometheus", "Grafana", "MinIO/S3"],
       url: "https://helpdigischool.com",
+      visibility: "private",
       featured: true,
     },
     {
@@ -486,6 +507,7 @@ const en: Dictionary = {
       period: "May 2025 – May 2026",
       stack: ["Angular 19", "Laravel 11", "Node.js", "GCP Cloud Run", "GCP Functions", "Docker", "Redis"],
       url: "https://livraison-express.net",
+      visibility: "private",
     },
     {
       slug: "congres-adna",
@@ -496,6 +518,7 @@ const en: Dictionary = {
         "Design and modeling of the Congrès ADNA collaborative platform, with secured user data flows (JWT, role management) on a microservices architecture.",
       period: "June 2024 – May 2025",
       stack: ["React", "Node.js", "Laravel", "JWT"],
+      visibility: "private",
     },
     {
       slug: "africa-unity",
@@ -507,6 +530,7 @@ const en: Dictionary = {
       period: "June 2023 – Nov. 2023",
       stack: ["PHP", "CMS", "MySQL"],
       url: "https://africaunity.net",
+      visibility: "private",
     },
   ],
   latestProjects: {
@@ -676,6 +700,8 @@ const en: Dictionary = {
     filterAll: "All",
     noResults: "No project matches this filter.",
     visitSite: "Visit website",
+    viewCode: "View code",
+    privateBadge: "🔒 Private project — code under NDA",
   },
   contactPage: {
     heading: "Contact",
