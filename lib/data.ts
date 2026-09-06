@@ -17,9 +17,12 @@ export type Project = {
   featured?: boolean;
 };
 
+export type RoleType = "employee" | "freelance" | "venture";
+
 export type Experience = {
   company: string;
   role: string;
+  roleType: RoleType;
   date: string;
   url?: string;
   location?: string;
@@ -64,7 +67,7 @@ export type Dictionary = {
   projects: Project[];
   latestProjects: { heading: string; viewProject: string; viewAll: (n: number) => string };
   experiences: Experience[];
-  experienceSection: { heading: string; downloadCV: string };
+  experienceSection: { heading: string; downloadCV: string; roleTypeLabels: Record<RoleType, string> };
   education: Education[];
   certifications: Certification[];
   skills: { category: string; items: string[] }[];
@@ -207,6 +210,7 @@ const fr: Dictionary = {
     {
       company: "Multi Canal Services",
       role: "Développeur Full Stack Angular & Cloud",
+      roleType: "employee",
       date: "05/2025 – 05/2026",
       url: "https://livraison-express.net",
       location: "Douala, Cameroun",
@@ -222,6 +226,7 @@ const fr: Dictionary = {
     {
       company: "HelpDigiSchool",
       role: "Développeur Full Stack — Data & SaaS",
+      roleType: "venture",
       date: "2025 – 04/2026",
       url: "https://helpdigischool.com",
       location: "Douala, Cameroun",
@@ -237,6 +242,7 @@ const fr: Dictionary = {
     {
       company: "DA Vinci IT Solutions",
       role: "Développeur Full Stack Microservices",
+      roleType: "employee",
       date: "06/2024 – 05/2025",
       location: "Douala, Cameroun",
       stack: ["React", "Node.js", "Laravel", "JWT"],
@@ -249,6 +255,7 @@ const fr: Dictionary = {
     {
       company: "ADAA",
       role: "Développeur Full Stack & Testeur",
+      roleType: "employee",
       date: "12/2023 – 05/2024",
       url: "https://adaacertif.com",
       location: "Douala, Cameroun",
@@ -260,6 +267,7 @@ const fr: Dictionary = {
     {
       company: "GENO CONSULTING",
       role: "Développeur Full Stack",
+      roleType: "employee",
       date: "06/2023 – 11/2023",
       url: "https://africaunity.net",
       location: "Douala, Cameroun",
@@ -269,7 +277,11 @@ const fr: Dictionary = {
       ],
     },
   ],
-  experienceSection: { heading: "Expérience", downloadCV: "Télécharger le CV" },
+  experienceSection: {
+    heading: "Expérience",
+    downloadCV: "Télécharger le CV",
+    roleTypeLabels: { employee: "Salarié", freelance: "Freelance", venture: "Projet entrepreneurial" },
+  },
   education: [
     {
       degree: "Licence Professionnelle — Métiers de l'Informatique : Applications Web (MIAW)",
@@ -341,7 +353,7 @@ const fr: Dictionary = {
   ],
   aboutPage: {
     intro1:
-      "Développeur Full Stack avec plus de 2 ans d'expérience professionnelle, spécialisé dans le déploiement d'applications cloud-native (GCP, Docker) et le traitement de données en production. Basé à Douala, Cameroun, je développe des pipelines de données temps réel, des interfaces de visualisation et des architectures microservices.",
+      "Développeur Full Stack avec près de 3 ans d'expérience professionnelle, spécialisé dans le déploiement d'applications cloud-native (GCP, Docker) et le traitement de données en production. Basé à Douala, Cameroun, je développe des pipelines de données temps réel, des interfaces de visualisation et des architectures microservices.",
     intro2:
       "Diplômé d'une Licence Professionnelle Métiers de l'Informatique : Applications Web de l'IUT d'Évry Val d'Essonne (mention Bien), je continue d'approfondir mes compétences en science des données pour connecter ingénierie logicielle et analyse décisionnelle.",
     sectionExperience: "Expérience",
@@ -506,6 +518,7 @@ const en: Dictionary = {
     {
       company: "Multi Canal Services",
       role: "Full Stack Angular & Cloud Developer",
+      roleType: "employee",
       date: "05/2025 – 05/2026",
       url: "https://livraison-express.net",
       location: "Douala, Cameroon",
@@ -521,6 +534,7 @@ const en: Dictionary = {
     {
       company: "HelpDigiSchool",
       role: "Full Stack Developer — Data & SaaS",
+      roleType: "venture",
       date: "2025 – 04/2026",
       url: "https://helpdigischool.com",
       location: "Douala, Cameroon",
@@ -536,6 +550,7 @@ const en: Dictionary = {
     {
       company: "DA Vinci IT Solutions",
       role: "Full Stack Microservices Developer",
+      roleType: "employee",
       date: "06/2024 – 05/2025",
       location: "Douala, Cameroon",
       stack: ["React", "Node.js", "Laravel", "JWT"],
@@ -548,6 +563,7 @@ const en: Dictionary = {
     {
       company: "ADAA",
       role: "Full Stack Developer & Tester",
+      roleType: "employee",
       date: "12/2023 – 05/2024",
       url: "https://adaacertif.com",
       location: "Douala, Cameroon",
@@ -559,6 +575,7 @@ const en: Dictionary = {
     {
       company: "GENO CONSULTING",
       role: "Full Stack Developer",
+      roleType: "employee",
       date: "06/2023 – 11/2023",
       url: "https://africaunity.net",
       location: "Douala, Cameroon",
@@ -568,7 +585,11 @@ const en: Dictionary = {
       ],
     },
   ],
-  experienceSection: { heading: "Experience", downloadCV: "Download CV" },
+  experienceSection: {
+    heading: "Experience",
+    downloadCV: "Download CV",
+    roleTypeLabels: { employee: "Employee", freelance: "Freelance", venture: "Personal venture" },
+  },
   education: [
     {
       degree: "Professional Bachelor's — IT Professions: Web Applications (MIAW)",
@@ -640,7 +661,7 @@ const en: Dictionary = {
   ],
   aboutPage: {
     intro1:
-      "Full Stack developer with over 2 years of professional experience, specialized in deploying cloud-native applications (GCP, Docker) and production data processing. Based in Douala, Cameroon, I build real-time data pipelines, visualization interfaces, and microservices architectures.",
+      "Full Stack developer with nearly 3 years of professional experience, specialized in deploying cloud-native applications (GCP, Docker) and production data processing. Based in Douala, Cameroon, I build real-time data pipelines, visualization interfaces, and microservices architectures.",
     intro2:
       "A graduate of a Professional Bachelor's degree in IT Professions: Web Applications from IUT d'Évry Val d'Essonne (Honors), I keep deepening my data science skills to connect software engineering with decision-making analysis.",
     sectionExperience: "Experience",

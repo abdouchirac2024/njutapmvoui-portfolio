@@ -23,8 +23,11 @@ export function ExperienceList({ locale }: { locale: Locale }) {
                 <span className="font-medium">{exp.company}</span>
                 <span className="text-muted"> — {exp.role}</span>
               </span>
-              <span className="shrink-0 whitespace-nowrap text-xs text-muted tabular-nums">
-                {exp.date}
+              <span className="flex shrink-0 flex-col items-end gap-0.5 text-right">
+                <span className="whitespace-nowrap text-xs text-muted tabular-nums">{exp.date}</span>
+                <span className="whitespace-nowrap text-[10px] uppercase tracking-wide text-muted/70">
+                  {t.experienceSection.roleTypeLabels[exp.roleType]}
+                </span>
               </span>
             </>
           );

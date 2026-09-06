@@ -81,7 +81,12 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
                     )}
                     <span className="font-normal text-muted"> — {exp.role}</span>
                   </h3>
-                  <span className="text-xs text-muted tabular-nums">{exp.date}</span>
+                  <div className="flex shrink-0 items-center gap-2">
+                    <span className="rounded-full border border-border px-2 py-0.5 text-[11px] text-muted">
+                      {t.experienceSection.roleTypeLabels[exp.roleType]}
+                    </span>
+                    <span className="text-xs text-muted tabular-nums">{exp.date}</span>
+                  </div>
                 </div>
                 {exp.stack && (
                   <p className="mt-1 text-xs text-muted">{exp.stack.join(" · ")}</p>
