@@ -209,6 +209,15 @@ const fr: Dictionary = {
       stack: ["Angular 19", "Laravel 11", "Node.js", "GCP Cloud Run", "GCP Functions", "Docker", "Redis"],
       url: "https://livraison-express.net",
       visibility: "private",
+      achievements: [
+        "Réduction de la facture d'infrastructure cloud de 1000€/mois à moins de 200€/mois (-80%), en refondant l'architecture et le mode d'hébergement.",
+        "Découplage du monolithe Laravel : migration du frontend vers Angular consommant une API REST Laravel, réduisant la latence perçue et séparant les responsabilités.",
+        "Migration de l'hébergement de Compute Engine (VM à facturation fixe) vers Cloud Run (conteneurs Docker, facturation à l'usage).",
+        "Automatisation de l'arrêt/redémarrage programmé (Cloud Functions Node.js) des services restés sur VM durant les heures creuses (22h–6h).",
+        "Passage au lazy loading des appels API, déclenchés par l'action utilisateur plutôt qu'au chargement systématique de la vue, réduisant les coûts de sortie réseau.",
+        "Routine de purge automatique de Firestore (Cloud Functions) pour éviter l'explosion des coûts de stockage NoSQL.",
+        "Pipeline CI/CD standardisé : conteneurisation Docker, gestion des images via Artifact Registry, déploiement automatisé sur Cloud Run.",
+      ],
     },
     {
       slug: "congres-adna",
@@ -562,6 +571,15 @@ const en: Dictionary = {
       stack: ["Angular 19", "Laravel 11", "Node.js", "GCP Cloud Run", "GCP Functions", "Docker", "Redis"],
       url: "https://livraison-express.net",
       visibility: "private",
+      achievements: [
+        "Cut cloud infrastructure costs from €1,000/month to under €200/month (-80%) by redesigning the architecture and hosting model.",
+        "Decoupled the Laravel monolith: migrated the frontend to Angular consuming a Laravel REST API, reducing perceived latency and separating concerns.",
+        "Migrated hosting from Compute Engine (fixed-cost VM) to Cloud Run (Docker containers, pay-as-you-go billing).",
+        "Automated scheduled start/stop (Node.js Cloud Functions) for services remaining on VMs during off-peak hours (10pm–6am).",
+        "Switched API calls to lazy loading triggered by user action instead of loading on every view, cutting network egress costs.",
+        "Set up an automated Firestore purge routine (Cloud Functions) to prevent NoSQL storage costs from ballooning.",
+        "Standardized CI/CD pipeline: Docker containerization, image management via Artifact Registry, automated deployment to Cloud Run.",
+      ],
     },
     {
       slug: "congres-adna",
