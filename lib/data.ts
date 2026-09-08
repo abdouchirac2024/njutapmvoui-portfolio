@@ -68,6 +68,7 @@ export type Dictionary = {
     badges: Badge[];
   };
   socials: Social[];
+  gallery: { src: string; alt: string }[];
   featuredProject: Project & { cardTitle: string; trustedBy: string; visitSite: string; viewProject: string };
   projects: Project[];
   latestProjects: { heading: string; viewProject: string; viewAll: (n: number) => string };
@@ -160,11 +161,17 @@ const fr: Dictionary = {
     { label: "GitHub", href: "https://github.com/abdouchirac2024", icon: "github" },
     { label: "Email", href: "mailto:abdouchirac411@gmail.com", icon: "mail" },
   ],
+  gallery: [
+    { src: "/image_bureau.png", alt: "Chirac au travail, sur un projet" },
+    { src: "/parchemin.png", alt: "Diplôme de Chirac" },
+    { src: "/bibliotheque.png", alt: "Chirac en session de travail à la bibliothèque" },
+  ],
   featuredProject: {
     slug: "helpdigischool",
     title: "HelpDigiSchool",
     cardTitle: "HelpDigiSchool — plateforme SaaS scolaire avec OCR et analytics",
-    description: "Plateforme SaaS scolaire avec OCR et analytics",
+    description:
+        "SaaS de gestion scolaire multi-établissements pour administrations, enseignants, élèves et parents : bulletins automatisés par OCR, suivi des notes en temps réel.",
     longDescription:
       "Écosystème microservices (Spring Boot, Spring Cloud, Eureka) pour la gestion scolaire multi-établissements : extraction OCR des notes (Tesseract.js), moteur de scoring et bulletins automatisés, dashboards décisionnels en temps réel.",
     period: "2025 – Avr. 2026",
@@ -180,7 +187,8 @@ const fr: Dictionary = {
     {
       slug: "helpdigischool",
       title: "HelpDigiSchool",
-      description: "Plateforme SaaS scolaire avec OCR et analytics",
+      description:
+        "SaaS de gestion scolaire multi-établissements pour administrations, enseignants, élèves et parents : bulletins automatisés par OCR, suivi des notes en temps réel.",
       longDescription:
         "Écosystème microservices (Spring Boot, Spring Cloud, Eureka) pour la gestion scolaire multi-établissements : extraction OCR des notes (Tesseract.js), moteur de scoring et bulletins automatisés, dashboards décisionnels en temps réel.",
       period: "2025 – Avr. 2026",
@@ -522,11 +530,17 @@ const en: Dictionary = {
     { label: "GitHub", href: "https://github.com/abdouchirac2024", icon: "github" },
     { label: "Email", href: "mailto:abdouchirac411@gmail.com", icon: "mail" },
   ],
+  gallery: [
+    { src: "/image_bureau.png", alt: "Chirac at work on a project" },
+    { src: "/parchemin.png", alt: "Chirac's diploma" },
+    { src: "/bibliotheque.png", alt: "Chirac working at the library" },
+  ],
   featuredProject: {
     slug: "helpdigischool",
     title: "HelpDigiSchool",
     cardTitle: "HelpDigiSchool — school SaaS platform with OCR and analytics",
-    description: "School SaaS platform with OCR and analytics",
+    description:
+        "Multi-school management SaaS for administrations, teachers, students and parents: OCR-automated report cards and real-time grade tracking.",
     longDescription:
       "Microservices ecosystem (Spring Boot, Spring Cloud, Eureka) for multi-school management: OCR grade extraction (Tesseract.js), an automated scoring and report-card engine, and real-time decision-making dashboards.",
     period: "2025 – Apr. 2026",
@@ -542,7 +556,8 @@ const en: Dictionary = {
     {
       slug: "helpdigischool",
       title: "HelpDigiSchool",
-      description: "School SaaS platform with OCR and analytics",
+      description:
+        "Multi-school management SaaS for administrations, teachers, students and parents: OCR-automated report cards and real-time grade tracking.",
       longDescription:
         "Microservices ecosystem (Spring Boot, Spring Cloud, Eureka) for multi-school management: OCR grade extraction (Tesseract.js), an automated scoring and report-card engine, and real-time decision-making dashboards.",
       period: "2025 – Apr. 2026",

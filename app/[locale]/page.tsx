@@ -1,4 +1,5 @@
 import { Hero } from "@/components/hero";
+import { Gallery } from "@/components/gallery";
 import { FeaturedProject } from "@/components/featured-project";
 import { LatestProjects } from "@/components/latest-projects";
 import { ExperienceList } from "@/components/experience-list";
@@ -11,6 +12,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
   return (
     <main className="mx-auto w-full max-w-[680px] px-6 pb-8 sm:px-8">
       <Hero locale={l} />
+      <Gallery locale={l} />
       <FeaturedProject locale={l} />
       <LatestProjects locale={l} />
       <ExperienceList locale={l} />

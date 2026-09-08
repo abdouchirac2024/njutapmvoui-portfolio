@@ -52,7 +52,7 @@ export function Hero({ locale }: { locale: Locale }) {
                 aria-label={social.label}
                 className="text-muted transition-colors hover:text-accent"
               >
-                <Icon size={19} />
+                <Icon width={19} height={19} />
               </a>
             );
           })}
