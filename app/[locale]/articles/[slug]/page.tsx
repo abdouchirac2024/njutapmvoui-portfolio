@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import type { ComponentProps } from "react";
 import { notFound } from "next/navigation";
+import Image from "next/image";
 import Link from "next/link";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import { getDictionary } from "@/lib/data";
@@ -110,6 +111,14 @@ export default async function ArticlePage({
           )}
         </div>
       </FadeIn>
+
+      {article.coverImage && (
+        <FadeIn delay={0.06}>
+          <div className="relative mt-6 aspect-[16/9] w-full overflow-hidden rounded-2xl border border-border">
+            <Image src={article.coverImage} alt={article.title} fill sizes="680px" className="object-cover" priority />
+          </div>
+        </FadeIn>
+      )}
 
       <FadeIn delay={0.08}>
         <article className="mt-8">

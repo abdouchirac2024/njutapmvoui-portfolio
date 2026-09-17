@@ -3,6 +3,7 @@ title: "Sending notifications at scale without taking the app down"
 excerpt: "A queue, a deliberately slow worker, and decoupling the request from the send: how I designed a notification system that absorbs a spike of 1,000 sends without ever blocking the user."
 date: "2026-09-15"
 tags: ["Architecture", "Spring Boot", "Scalability", "Notifications"]
+coverImage: "/article/notification.png"
 ---
 
 On HelpDigiSchool, every meaningful event — a grade published, a report card ready, a payment past due — has to reach the right people: administrators, teachers, students, parents. And across several channels at once: an in-app bell, a browser push, an email, sometimes WhatsApp.
@@ -26,10 +27,6 @@ Using a table instead of a conventional message broker (RabbitMQ, Kafka...) isn'
 The counter-intuitive part: the fix isn't sending faster, it's sending slower — and irregularly. A channel like WhatsApp penalizes anything that looks too mechanical. So the scheduled worker adds a random delay between sends, a longer pause every few messages, a daily quota per sender, and a "human" sending window (nothing at 3am). On repeated provider errors, a temporary circuit breaker halts the whole channel instead of hammering it.
 
 For more forgiving channels — email, browser push — the calculation is different: they run as async tasks on a dedicated thread pool with a bounded queue capacity, absorbing a spike without it ever reaching the threads serving HTTP requests.
-
-## What was still missing
-
-This system handles the daily automatic sends very well. What it didn't yet handle was a manual bulk trigger — an admin who wants to remind 1,000 students *right now*, not tomorrow morning. The answer isn't to process that synchronously inside the HTTP request: it's inserting the 1,000 rows in a single batched transaction (fast), responding immediately, then letting the same scheduled worker — or a batched variant, 20 to 50 at a time — drain the queue at a pace the database and external channels can absorb.
 
 ## What I take from it
 

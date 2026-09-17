@@ -3,6 +3,7 @@ title: "Envoyer des notifications à grande échelle sans faire tomber l'applica
 excerpt: "File d'attente, débit volontairement lent, découplage de la requête : comment j'ai conçu un système de notifications qui encaisse un pic de 1000 envois sans jamais bloquer l'utilisateur."
 date: "2026-09-15"
 tags: ["Architecture", "Spring Boot", "Scalabilité", "Notifications"]
+coverImage: "/article/notification.png"
 ---
 
 Sur HelpDigiSchool, chaque événement important — une note publiée, un bulletin disponible, une échéance de paiement dépassée — doit prévenir les bonnes personnes : administration, enseignants, élèves, parents. Et sur plusieurs canaux à la fois : une cloche dans l'application, un push navigateur, un email, parfois WhatsApp.
@@ -26,10 +27,6 @@ Ce choix — une table plutôt qu'une queue applicative classique (Rabbit, Kafka
 Le contre-intuitif du problème : la solution n'est pas d'envoyer plus vite, mais plus lentement — et de manière irrégulière. Un canal comme WhatsApp pénalise les comportements trop mécaniques. Le travailleur planifié introduit donc un délai aléatoire entre chaque envoi, une pause plus longue toutes les quelques messages, un quota journalier par expéditeur, et une fenêtre horaire "humaine" (pas d'envoi à 3h du matin). En cas d'erreur répétée du fournisseur, un coupe-circuit temporaire arrête tout le canal plutôt que de s'acharner.
 
 Pour les canaux plus tolérants — email, push navigateur — le calcul est différent : ils partent en tâche asynchrone sur un pool de threads dédié, avec une capacité de file bornée, pour absorber un pic sans le répercuter sur les threads qui servent les requêtes HTTP.
-
-## Ce qui manquait encore
-
-Ce système gère très bien l'envoi automatique quotidien. Ce qu'il ne gérait pas encore, c'est le déclenchement manuel massif — un administrateur qui veut relancer 1000 élèves *maintenant*, pas demain matin. La réponse n'est pas de traiter ça en synchrone dans la requête HTTP : c'est d'insérer les 1000 lignes en une seule transaction groupée (rapide), de répondre immédiatement, puis de laisser le même travailleur planifié — ou une variante par lots de 20 à 50 — vider la file à un rythme que la base et les canaux externes peuvent encaisser.
 
 ## Ce que j'en retiens
 
