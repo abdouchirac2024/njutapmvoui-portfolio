@@ -1,0 +1,36 @@
+---
+title: "Sending notifications at scale without taking the app down"
+excerpt: "A queue, a deliberately slow worker, and decoupling the request from the send: how I designed a notification system that absorbs a spike of 1,000 sends without ever blocking the user."
+date: "2026-09-15"
+tags: ["Architecture", "Spring Boot", "Scalability", "Notifications"]
+---
+
+On HelpDigiSchool, every meaningful event — a grade published, a report card ready, a payment past due — has to reach the right people: administrators, teachers, students, parents. And across several channels at once: an in-app bell, a browser push, an email, sometimes WhatsApp.
+
+The classic trap is sending all of that synchronously, inside the request thread that triggered the event. It works great — until the day an admin clicks "remind all overdue accounts" for 1,000 students at once, or a poorly targeted query reaches far more recipients than intended. That's exactly the kind of incident that pushed me to rethink the sending architecture instead of stacking patches on top of it.
+
+## Never send inline
+
+The first rule I set for myself: a user action should never wait on an external send to finish. Creating a notification is a database write — fast, inside the same transaction as the business action. The actual delivery (push, email, WhatsApp) is handed off elsewhere, and the request returns immediately.
+
+Concretely, that means separating two things we tend to conflate: **accepting** a send request and **executing** it. Accepting is instant. Executing can take time, fail, need a retry — and must never block anyone.
+
+## A queue instead of a thread pool
+
+For the least forgiving channels — WhatsApp above all, where sending too fast risks getting the number banned — I built a real queue: every message to send becomes a database row, with a status (pending, processing, sent, failed) and a priority. A scheduled worker picks one message at a time, in priority order, and actually sends it.
+
+Using a table instead of a conventional message broker (RabbitMQ, Kafka...) isn't a fallback compromise: on infrastructure running several replicas, the database is already the shared source of truth, and a row-level lock at claim time (`SELECT ... FOR UPDATE SKIP LOCKED`) is enough to guarantee a message is never processed twice, with no extra coordination between instances.
+
+## A deliberately slow throughput
+
+The counter-intuitive part: the fix isn't sending faster, it's sending slower — and irregularly. A channel like WhatsApp penalizes anything that looks too mechanical. So the scheduled worker adds a random delay between sends, a longer pause every few messages, a daily quota per sender, and a "human" sending window (nothing at 3am). On repeated provider errors, a temporary circuit breaker halts the whole channel instead of hammering it.
+
+For more forgiving channels — email, browser push — the calculation is different: they run as async tasks on a dedicated thread pool with a bounded queue capacity, absorbing a spike without it ever reaching the threads serving HTTP requests.
+
+## What was still missing
+
+This system handles the daily automatic sends very well. What it didn't yet handle was a manual bulk trigger — an admin who wants to remind 1,000 students *right now*, not tomorrow morning. The answer isn't to process that synchronously inside the HTTP request: it's inserting the 1,000 rows in a single batched transaction (fast), responding immediately, then letting the same scheduled worker — or a batched variant, 20 to 50 at a time — drain the queue at a pace the database and external channels can absorb.
+
+## What I take from it
+
+The natural instinct when facing a load spike is to add threads, bigger batches, more parallelism. Here, the right answer was the opposite: decouple acceptance from execution, then deliberately *slow down* execution to a pace the downstream system — a database shared across several replicas, a WhatsApp API that bans suspicious behavior — can sustain indefinitely. A slow, reliable queue always beats a fast send that eventually falls over.

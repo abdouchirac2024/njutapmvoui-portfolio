@@ -58,6 +58,7 @@ export type Dictionary = {
     home: { title: string; description: string };
     about: { title: string; description: string };
     projects: { title: string; description: string };
+    articles: { title: string; description: string };
     contact: { title: string; description: string };
   };
   nav: { label: string; href: string }[];
@@ -101,6 +102,13 @@ export type Dictionary = {
     privateBadge: string;
     privateBadgeDetailed: string;
   };
+  articlesPage: {
+    heading: string;
+    intro: string;
+    filterAll: string;
+    noResults: string;
+    readMore: string;
+  };
   contactPage: { heading: string; intro: string; phoneLabel: string; whatsappCta: string };
   footer: { links: { label: string; href: string }[]; copyright: string };
   site: { name: string; role: string; email: string; phone: string; whatsapp: string; location: string };
@@ -121,6 +129,10 @@ const fr: Dictionary = {
       title: "Projets — Chirac Njutapmvoui",
       description: "Tous les projets de Chirac Njutapmvoui, filtrables par stack technique.",
     },
+    articles: {
+      title: "Articles — Chirac Njutapmvoui",
+      description: "Notes techniques de Chirac Njutapmvoui sur l'architecture, le backend et le cloud.",
+    },
     contact: {
       title: "Contact — Chirac Njutapmvoui",
       description: "Contactez Chirac Njutapmvoui.",
@@ -130,6 +142,7 @@ const fr: Dictionary = {
     { label: "Accueil", href: "/" },
     { label: "À propos", href: "/about" },
     { label: "Projets", href: "/projects" },
+    { label: "Articles", href: "/articles" },
     { label: "Certifications", href: "/about#certifications" },
     { label: "Contact", href: "/contact" },
   ],
@@ -451,6 +464,13 @@ const fr: Dictionary = {
     privateBadge: "🔒 Projet privé — code sous NDA",
     privateBadgeDetailed: "🔒 Code source privé (NDA) — architecture et résultats détaillés ci-dessous",
   },
+  articlesPage: {
+    heading: "Articles",
+    intro: "Notes techniques sur l'architecture, le backend et le cloud — ce que j'apprends en construisant en production.",
+    filterAll: "Tous",
+    noResults: "Aucun article pour ce filtre.",
+    readMore: "Lire l'article →",
+  },
   contactPage: {
     heading: "Contact",
     intro:
@@ -462,6 +482,7 @@ const fr: Dictionary = {
     links: [
       { label: "À propos", href: "/about" },
       { label: "Projets", href: "/projects" },
+      { label: "Articles", href: "/articles" },
       { label: "Contact", href: "/contact" },
     ],
     copyright: "© 2026 Chirac Njutapmvoui. Tous droits réservés.",
@@ -491,6 +512,10 @@ const en: Dictionary = {
       title: "Projects — Chirac Njutapmvoui",
       description: "All of Chirac Njutapmvoui's projects, filterable by tech stack.",
     },
+    articles: {
+      title: "Articles — Chirac Njutapmvoui",
+      description: "Chirac Njutapmvoui's technical notes on architecture, backend, and cloud.",
+    },
     contact: {
       title: "Contact — Chirac Njutapmvoui",
       description: "Get in touch with Chirac Njutapmvoui.",
@@ -500,6 +525,7 @@ const en: Dictionary = {
     { label: "Home", href: "/" },
     { label: "About", href: "/about" },
     { label: "Projects", href: "/projects" },
+    { label: "Articles", href: "/articles" },
     { label: "Certifications", href: "/about#certifications" },
     { label: "Contact", href: "/contact" },
   ],
@@ -820,6 +846,13 @@ const en: Dictionary = {
     privateBadge: "🔒 Private project — code under NDA",
     privateBadgeDetailed: "🔒 Private source code (NDA) — architecture and results detailed below",
   },
+  articlesPage: {
+    heading: "Articles",
+    intro: "Technical notes on architecture, backend, and cloud — lessons learned building in production.",
+    filterAll: "All",
+    noResults: "No article matches this filter.",
+    readMore: "Read the article →",
+  },
   contactPage: {
     heading: "Contact",
     intro:
@@ -831,6 +864,7 @@ const en: Dictionary = {
     links: [
       { label: "About", href: "/about" },
       { label: "Projects", href: "/projects" },
+      { label: "Articles", href: "/articles" },
       { label: "Contact", href: "/contact" },
     ],
     copyright: "© 2026 Chirac Njutapmvoui. All rights reserved.",
