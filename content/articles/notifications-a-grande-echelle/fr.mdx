@@ -6,9 +6,19 @@ tags: ["Architecture", "Spring Boot", "Scalabilité", "Notifications"]
 coverImage: "/article/notification.png"
 ---
 
-Sur HelpDigiSchool, chaque événement important — une note publiée, un bulletin disponible, une échéance de paiement dépassée — doit prévenir les bonnes personnes : administration, enseignants, élèves, parents. Et sur plusieurs canaux à la fois : une cloche dans l'application, un push navigateur, un email, parfois WhatsApp.
+Sur HelpDigiSchool, chaque événement important — une note publiée, un devoir mis en ligne, un bulletin disponible, une échéance de paiement dépassée — doit prévenir les bonnes personnes : fondateurs et administrateurs d'établissement, enseignants, élèves du secondaire consultant leurs devoirs, étudiants, parents. Plus de 1 000 personnes peuvent être connectées en même temps, et chacune doit recevoir l'information sur plusieurs canaux à la fois : une cloche dans l'application, un push navigateur, un email, parfois WhatsApp.
 
 Le piège classique, c'est d'envoyer tout ça en direct, dans le thread de la requête qui déclenche l'événement. Ça fonctionne très bien... jusqu'au jour où un administrateur clique sur "relancer tous les impayés" pour 1000 élèves d'un coup, ou où une requête mal ciblée part beaucoup plus loin que prévu. C'est exactement le genre d'incident qui m'a poussé à repenser l'architecture d'envoi plutôt que d'empiler des rustines.
+
+## Rester rapide avant même d'envoyer une notification
+
+Avec un tel volume d'utilisateurs simultanés, le premier risque n'est pas l'envoi des notifications — c'est la lenteur perçue à la simple connexion à l'application.
+
+Le symptôme le plus parlant : une page qui met plus de 30 secondes à charger les notes d'une classe de 170 élèves, avec des requêtes qui finissent en timeout. La cause, presque toujours la même : des requêtes N+1 qui interrogent la base élève par élève au lieu de récupérer les données en un seul aller-retour, combinées à un cache absent ou mal ciblé. Éliminer ces requêtes N+1 et introduire un cache sur les données les plus consultées a fait passer ce chargement à moins de 3 secondes.
+
+Le second symptôme n'apparaît que sous charge réelle : un pool de connexions (base de données, cache) dimensionné pour un usage normal s'épuise dès qu'un nombre inhabituel d'utilisateurs se connecte en même temps, provoquant des erreurs 503 en cascade. Diagnostiquer cet épuisement et redimensionner le pool en conséquence a permis de faire passer le taux d'échec sous forte charge de 75% à moins de 10%.
+
+Ces deux correctifs n'ont rien à voir avec les notifications elles-mêmes — mais sans eux, aucune architecture de file d'attente n'aurait de sens : on ne peut pas se permettre de ralentir l'envoi si la simple connexion à l'application est déjà le goulot d'étranglement.
 
 ## Ne jamais envoyer en direct
 

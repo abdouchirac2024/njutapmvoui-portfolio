@@ -6,9 +6,19 @@ tags: ["Architecture", "Spring Boot", "Scalability", "Notifications"]
 coverImage: "/article/notification.png"
 ---
 
-On HelpDigiSchool, every meaningful event — a grade published, a report card ready, a payment past due — has to reach the right people: administrators, teachers, students, parents. And across several channels at once: an in-app bell, a browser push, an email, sometimes WhatsApp.
+On HelpDigiSchool, every meaningful event — a grade published, an assignment posted, a report card ready, a payment past due — has to reach the right people: school founders and administrators, teachers, secondary school students checking their homework, university students, parents. Over 1,000 people can be connected at the same time, and each of them needs to hear about it across several channels at once: an in-app bell, a browser push, an email, sometimes WhatsApp.
 
 The classic trap is sending all of that synchronously, inside the request thread that triggered the event. It works great — until the day an admin clicks "remind all overdue accounts" for 1,000 students at once, or a poorly targeted query reaches far more recipients than intended. That's exactly the kind of incident that pushed me to rethink the sending architecture instead of stacking patches on top of it.
+
+## Staying fast before a single notification is even sent
+
+With that many concurrent users, the first risk isn't sending notifications — it's the perceived slowness of simply connecting to the app.
+
+The clearest symptom: a page taking over 30 seconds to load grades for a 170-student class, with requests timing out. The cause is almost always the same: N+1 queries hitting the database student by student instead of fetching the data in one round trip, combined with missing or poorly targeted caching. Eliminating those N+1 queries and adding caching on the most-requested data brought that load time under 3 seconds.
+
+The second symptom only shows up under real load: a connection pool (database, cache) sized for normal usage runs dry the moment an unusual number of users connect at once, triggering a cascade of 503 errors. Diagnosing that exhaustion and resizing the pool accordingly cut the failure rate under heavy load from 75% to under 10%.
+
+Neither fix has anything to do with notifications themselves — but without them, no queue architecture would matter: there's no point keeping sends from slowing down the app if simply connecting to it is already the bottleneck.
 
 ## Never send inline
 
