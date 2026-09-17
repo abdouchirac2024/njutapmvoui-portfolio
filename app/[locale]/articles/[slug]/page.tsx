@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 import type { ComponentProps } from "react";
 import { notFound } from "next/navigation";
-import Image from "next/image";
 import Link from "next/link";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import { getDictionary } from "@/lib/data";
 import { getAllSlugs, getArticleBySlug } from "@/lib/articles";
 import { FadeIn } from "@/components/fade-in";
+import { ImageLightbox } from "@/components/image-lightbox";
 import { isLocale, locales, withLocale, type Locale } from "@/lib/i18n";
 import { buildMetadata } from "@/lib/seo";
 
@@ -114,8 +114,8 @@ export default async function ArticlePage({
 
       {article.coverImage && (
         <FadeIn delay={0.06}>
-          <div className="relative mt-6 aspect-[16/9] w-full overflow-hidden rounded-2xl border border-border">
-            <Image src={article.coverImage} alt={article.title} fill sizes="680px" className="object-cover" priority />
+          <div className="mt-6">
+            <ImageLightbox src={article.coverImage} alt={article.title} />
           </div>
         </FadeIn>
       )}
