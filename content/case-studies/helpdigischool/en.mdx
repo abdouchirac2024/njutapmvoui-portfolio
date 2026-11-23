@@ -1,0 +1,35 @@
+---
+title: "HelpDigiSchool — Multi-tenant School Management SaaS"
+---
+
+## Reliable communication with families
+
+Diagnosis and redesign of the WhatsApp delivery engine, operating under strict anti-ban constraints: per-SIM warm-up quotas, "human" pacing, multi-SIM rotation.
+
+- Identified a queue-ordering defect that prevented entire categories of messages from ever going out: some waited weeks without a single error being raised. Rewrote the priority rules, with time-bounded priorities so no message type can monopolize the queue.
+- Added expiry for messages that are no longer relevant, rather than delivering them late.
+- Uncovered an architectural blind spot: the SIM fallback mechanism did not cover the configuration actually deployed, leaving several hundred messages with no outbound route.
+
+## Automated weekly reports
+
+Sunday reports sent to school leadership over WhatsApp and email with an attached PDF, backed by a review screen showing the exact message that was received.
+
+- Business safeguard: when the data cannot attribute an action to a person, no named list is produced. A report that wrongly implicates staff is worse than no report at all.
+- Multi-tenant isolation proven by test: the absence of data leakage between schools is verified by deliberately breaking the partitioning and confirming the tests fail.
+- Narrowed the scope to schools: training centres were receiving a weekly report on practices that are not their own.
+
+## Academic oversight
+
+- **Students to watch** — exam-year classes, averages below the critical threshold, with separate views for leadership and for teachers, restricted to the subjects they actually teach.
+- **Missing grades** — assessments created for which no grade has been entered, deducing who is responsible from teaching assignments.
+- **Vector PDF export** (jsPDF) replacing an HTML rasterization that truncated rows at page breaks: a 25-page document, repeated headers, no data loss.
+- Fixed a screen that reported "everything is entered" to primary schools while having queried none of their data, since they use a distinct competency-based grading model.
+
+## Financial traceability
+
+- Audit of payment and deletion history against real data.
+- **Deletion log**: deleted amounts with date, time and author, distinguishing cancellations, corrections, and sums kept in the cash drawer.
+
+## Method
+
+Systematic diagnosis on production data before any fix: quantify the problem before treating it, and never write financial data on an assumption. Every fix ships with tests that are verified to fail without it. The codebase is covered by roughly 5,000 automated tests.

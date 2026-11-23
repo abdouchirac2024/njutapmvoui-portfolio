@@ -1,12 +1,19 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { ArrowUpRight } from "lucide-react";
+import Link from "next/link";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { getDictionary } from "@/lib/data";
 import { FadeIn } from "@/components/fade-in";
-import type { Locale } from "@/lib/i18n";
+import { withLocale, type Locale } from "@/lib/i18n";
 
-export function ProjectsClient({ locale }: { locale: Locale }) {
+export function ProjectsClient({
+  locale,
+  caseStudySlugs,
+}: {
+  locale: Locale;
+  caseStudySlugs: string[];
+}) {
   const t = getDictionary(locale);
   const projects = t.projects;
 
@@ -86,6 +93,15 @@ export function ProjectsClient({ locale }: { locale: Locale }) {
                 ))}
               </div>
               <div className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2">
+                {caseStudySlugs.includes(project.slug) && (
+                  <Link
+                    href={withLocale(locale, `/projects/${project.slug}`)}
+                    className="inline-flex items-center gap-1 text-sm font-medium text-foreground underline decoration-border underline-offset-4 transition-colors hover:text-accent hover:decoration-accent"
+                  >
+                    {t.projectsPage.readCaseStudy}
+                    <ArrowRight size={14} />
+                  </Link>
+                )}
                 {project.url && (
                   <a
                     href={project.url}

@@ -2,13 +2,15 @@ import type { MetadataRoute } from "next";
 import { locales } from "@/lib/i18n";
 import { siteUrl } from "@/lib/seo";
 import { getAllSlugs } from "@/lib/articles";
+import { getAllCaseStudySlugs } from "@/lib/case-studies";
 
 const paths = ["/", "/about", "/projects", "/articles", "/contact"];
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const lastModified = new Date();
   const articlePaths = getAllSlugs().map((slug) => `/articles/${slug}`);
-  const allPaths = [...paths, ...articlePaths];
+  const caseStudyPaths = getAllCaseStudySlugs().map((slug) => `/projects/${slug}`);
+  const allPaths = [...paths, ...articlePaths, ...caseStudyPaths];
 
   return locales.flatMap((locale) =>
     allPaths.map((path) => ({

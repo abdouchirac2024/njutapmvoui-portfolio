@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { getDictionary } from "@/lib/data";
+import { getAllCaseStudySlugs } from "@/lib/case-studies";
 import { FadeIn } from "@/components/fade-in";
 import { isLocale, locales, type Locale } from "@/lib/i18n";
 import { buildMetadata } from "@/lib/seo";
@@ -37,7 +38,7 @@ export default async function ProjectsPage({ params }: { params: Promise<{ local
         <h1 className="text-2xl font-semibold tracking-tight text-foreground">{t.projectsPage.heading}</h1>
         <p className="mt-3 text-[15px] leading-relaxed text-muted">{t.projectsPage.intro}</p>
       </FadeIn>
-      <ProjectsClient locale={l} />
+      <ProjectsClient locale={l} caseStudySlugs={getAllCaseStudySlugs()} />
     </main>
   );
 }

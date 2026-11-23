@@ -101,6 +101,7 @@ export type Dictionary = {
     viewCode: string;
     privateBadge: string;
     privateBadgeDetailed: string;
+    readCaseStudy: string;
   };
   articlesPage: {
     heading: string;
@@ -184,15 +185,15 @@ const fr: Dictionary = {
     title: "HelpDigiSchool",
     cardTitle: "HelpDigiSchool — plateforme SaaS scolaire avec OCR et analytics",
     description:
-        "SaaS de gestion scolaire multi-établissements pour administrations, enseignants, élèves et parents : bulletins automatisés par OCR, suivi des notes en temps réel.",
+        "Plateforme en production utilisée par une vingtaine d'établissements au Cameroun : inscriptions, finances, notes, vie scolaire, et communication aux familles par WhatsApp et e-mail.",
     longDescription:
       "Écosystème microservices (Spring Boot, Spring Cloud, Eureka) pour la gestion scolaire multi-établissements : extraction OCR des notes (Tesseract.js), moteur de scoring et bulletins automatisés, dashboards décisionnels en temps réel.",
     period: "2025 – Avr. 2026",
-    stack: ["Java 21", "Spring Boot", "Spring Cloud", "Next.js 15", "MySQL", "Redis", "Docker", "Prometheus", "Grafana", "MinIO/S3"],
+    stack: ["Java 21", "Spring Boot 3.5", "Spring Cloud", "MySQL 8", "Redis", "MinIO", "Docker", "Next.js 15", "React 19", "TypeScript", "Tailwind", "Prometheus", "Grafana"],
     url: "https://helpdigischool.com",
     visibility: "private",
     featured: true,
-    trustedBy: "Approuvé par plusieurs établissements scolaires",
+    trustedBy: "Approuvé par une vingtaine d'établissements scolaires",
     visitSite: "Visiter le site",
     viewProject: "Voir le projet",
   },
@@ -201,11 +202,11 @@ const fr: Dictionary = {
       slug: "helpdigischool",
       title: "HelpDigiSchool",
       description:
-        "SaaS de gestion scolaire multi-établissements pour administrations, enseignants, élèves et parents : bulletins automatisés par OCR, suivi des notes en temps réel.",
+        "Plateforme en production utilisée par une vingtaine d'établissements au Cameroun : inscriptions, finances, notes, vie scolaire, et communication aux familles par WhatsApp et e-mail.",
       longDescription:
         "Écosystème microservices (Spring Boot, Spring Cloud, Eureka) pour la gestion scolaire multi-établissements : extraction OCR des notes (Tesseract.js), moteur de scoring et bulletins automatisés, dashboards décisionnels en temps réel.",
       period: "2025 – Avr. 2026",
-      stack: ["Java 21", "Spring Boot", "Spring Cloud", "Next.js 15", "MySQL", "Redis", "Docker", "Prometheus", "Grafana", "MinIO/S3"],
+      stack: ["Java 21", "Spring Boot 3.5", "Spring Cloud", "MySQL 8", "Redis", "MinIO", "Docker", "Next.js 15", "React 19", "TypeScript", "Tailwind", "Prometheus", "Grafana"],
       url: "https://helpdigischool.com",
       visibility: "private",
       featured: true,
@@ -463,6 +464,7 @@ const fr: Dictionary = {
     viewCode: "Voir le code",
     privateBadge: "🔒 Projet privé — code sous NDA",
     privateBadgeDetailed: "🔒 Code source privé (NDA) — architecture et résultats détaillés ci-dessous",
+    readCaseStudy: "Lire l'étude de cas",
   },
   articlesPage: {
     heading: "Articles",
@@ -566,15 +568,15 @@ const en: Dictionary = {
     title: "HelpDigiSchool",
     cardTitle: "HelpDigiSchool — school SaaS platform with OCR and analytics",
     description:
-        "Multi-school management SaaS for administrations, teachers, students and parents: OCR-automated report cards and real-time grade tracking.",
+        "A production platform used by around twenty schools in Cameroon: enrolment, finances, grades, student life, and communication with families over WhatsApp and email.",
     longDescription:
       "Microservices ecosystem (Spring Boot, Spring Cloud, Eureka) for multi-school management: OCR grade extraction (Tesseract.js), an automated scoring and report-card engine, and real-time decision-making dashboards.",
     period: "2025 – Apr. 2026",
-    stack: ["Java 21", "Spring Boot", "Spring Cloud", "Next.js 15", "MySQL", "Redis", "Docker", "Prometheus", "Grafana", "MinIO/S3"],
+    stack: ["Java 21", "Spring Boot 3.5", "Spring Cloud", "MySQL 8", "Redis", "MinIO", "Docker", "Next.js 15", "React 19", "TypeScript", "Tailwind", "Prometheus", "Grafana"],
     url: "https://helpdigischool.com",
     visibility: "private",
     featured: true,
-    trustedBy: "Trusted by several schools",
+    trustedBy: "Trusted by around twenty schools",
     visitSite: "Visit website",
     viewProject: "View project",
   },
@@ -583,11 +585,11 @@ const en: Dictionary = {
       slug: "helpdigischool",
       title: "HelpDigiSchool",
       description:
-        "Multi-school management SaaS for administrations, teachers, students and parents: OCR-automated report cards and real-time grade tracking.",
+        "A production platform used by around twenty schools in Cameroon: enrolment, finances, grades, student life, and communication with families over WhatsApp and email.",
       longDescription:
         "Microservices ecosystem (Spring Boot, Spring Cloud, Eureka) for multi-school management: OCR grade extraction (Tesseract.js), an automated scoring and report-card engine, and real-time decision-making dashboards.",
       period: "2025 – Apr. 2026",
-      stack: ["Java 21", "Spring Boot", "Spring Cloud", "Next.js 15", "MySQL", "Redis", "Docker", "Prometheus", "Grafana", "MinIO/S3"],
+      stack: ["Java 21", "Spring Boot 3.5", "Spring Cloud", "MySQL 8", "Redis", "MinIO", "Docker", "Next.js 15", "React 19", "TypeScript", "Tailwind", "Prometheus", "Grafana"],
       url: "https://helpdigischool.com",
       visibility: "private",
       featured: true,
@@ -845,6 +847,7 @@ const en: Dictionary = {
     viewCode: "View code",
     privateBadge: "🔒 Private project — code under NDA",
     privateBadgeDetailed: "🔒 Private source code (NDA) — architecture and results detailed below",
+    readCaseStudy: "Read the case study",
   },
   articlesPage: {
     heading: "Articles",

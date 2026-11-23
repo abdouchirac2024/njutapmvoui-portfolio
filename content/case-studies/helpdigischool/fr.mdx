@@ -1,0 +1,35 @@
+---
+title: "HelpDigiSchool — SaaS multi-tenant de gestion scolaire"
+---
+
+## Fiabilité de la communication aux familles
+
+Diagnostic et refonte du moteur d'envoi WhatsApp, soumis à de fortes contraintes anti-bannissement : quotas de chauffe par SIM, cadencement « humain », rotation multi-SIM.
+
+- Identification d'un défaut d'ordonnancement de file qui empêchait des catégories entières de messages de partir : certains attendaient plusieurs semaines sans qu'aucune erreur ne soit levée. Refonte des règles de priorité, avec priorités bornées dans le temps pour qu'aucun type de message ne puisse monopoliser la file.
+- Mise en place d'une expiration des messages devenus sans objet, plutôt que de les livrer en retard.
+- Détection d'un angle mort d'architecture : le mécanisme de repli entre SIM ne couvrait pas la configuration réellement déployée, laissant plusieurs centaines de messages sans route de sortie.
+
+## Rapports hebdomadaires automatisés
+
+Rapports du dimanche envoyés à la direction par WhatsApp et e-mail avec PDF joint, doublés d'un écran de relecture affichant le message exact reçu.
+
+- Garde-fou métier : lorsque les données ne permettent pas d'attribuer une action à une personne, aucune liste nominative n'est produite. Un rapport qui met en cause des collaborateurs à tort est pire que pas de rapport.
+- Isolation multi-tenant prouvée par le test : la non-fuite de données entre établissements est vérifiée en cassant délibérément le cloisonnement et en constatant l'échec des tests.
+- Restriction du périmètre aux établissements scolaires : les centres de formation recevaient chaque semaine un rapport portant sur des pratiques qui ne sont pas les leurs.
+
+## Pilotage pédagogique
+
+- **Élèves à surveiller** — classes d'examen, moyennes sous le seuil critique, décliné côté direction et côté enseignant avec restriction aux matières réellement enseignées.
+- **Notes non saisies** — évaluations créées dont aucune note n'a été entrée, avec déduction du responsable à partir des affectations.
+- **Export PDF vectoriel** (jsPDF) en remplacement d'une rasterisation HTML qui tronquait des lignes aux sauts de page : document de 25 pages, en-têtes répétés, aucune perte de données.
+- Correction d'un écran qui annonçait « tout est saisi » aux écoles primaires alors qu'il n'avait consulté aucune de leurs données, celles-ci utilisant un modèle de notation par compétences distinct.
+
+## Traçabilité financière
+
+- Audit de l'historique des paiements et des suppressions sur données réelles.
+- **Journal des suppressions** : montants supprimés avec date, heure et auteur, distinguant annulations, corrections et sommes conservées en caisse.
+
+## Méthode
+
+Diagnostic systématique sur les données de production avant toute correction : chiffrer le problème avant de le traiter, et ne jamais écrire de données financières sur une supposition. Chaque correctif est accompagné de tests dont on vérifie qu'ils échouent en son absence. Base couverte par environ 5 000 tests automatisés.
